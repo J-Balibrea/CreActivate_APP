@@ -1,0 +1,738 @@
+/* CreActivate App Styles */
+:root {
+    --primary-color: #6200ea; /* Morado principal */
+    --primary-light: #9d46ff;
+    --primary-dark: #0a00b6;
+    --secondary-color: #2979ff; /* Azul */
+    --secondary-light: #75a7ff;
+    --secondary-dark: #004ecb;
+    --text-on-light: #212121;
+    --text-on-dark: #ffffff;
+    --background-light: #f5f5f5;
+    --background-white: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+
+/* Base styles */
+body {
+    background: #ffffff;
+    color: var(--text-on-light);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Pantallas */
+.screen {
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateY(20px);
+    width: 100%;
+    max-width: 430px;
+    height: 90vh;
+    max-height: 932px;
+    background: var(--background-light);
+    border-radius: 40px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    opacity: 0;
+    z-index: 0;
+    transition: transform var(--transition-speed),
+                opacity var(--transition-speed),
+                visibility 0s var(--transition-speed);
+}
+
+.screen.active {
+    visibility: visible;
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+    z-index: 10;
+    transition: transform var(--transition-speed),
+                opacity var(--transition-speed),
+                visibility 0s;
+}
+
+/* Estructura base de las pantallas */
+.screen > div:not(.mode-header) {
+    height: calc(100% - 50px); /* Altura total menos el header */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Headers de los modos */
+.mode-header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 0 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Contenido de los modos */
+.mode-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 10vh; /* Posiciona el contenido al primer tercio */
+    gap: 20px;
+}
+
+/* Contenedor interno para scroll */
+.screen > div {
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+/* Pantalla principal específicamente */
+#main-screen {
+    justify-content: flex-start;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    height: 100%;
+}
+
+.main-logo {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+    margin-top: 20px;
+}
+
+.main-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.mode-button.square {
+    width: 100%;
+    max-width: 280px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border: none;
+    border-radius: 25px;
+    background: var(--primary-color);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15),
+                inset 0 2px 3px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-speed);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.mode-button.square::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    border-radius: 25px 25px 0 0;
+}
+
+.mode-button.square:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2),
+                inset 0 2px 3px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mode-button.square:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15),
+                inset 0 -2px 3px rgba(255, 255, 255, 0.2),
+                inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mode-button.square i {
+    font-size: 2.8rem;
+    color: var(--text-on-dark);
+}
+
+.mode-button.square span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-on-dark);
+    text-align: center;
+}
+
+.config-container {
+    margin-top: auto;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.config-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.config-button i {
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.config-button span {
+    font-size: 0.95rem;
+    color: #888;
+}
+
+.config-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.config-button:hover i,
+.config-button:hover span {
+    color: #666;
+}
+
+/* Pantalla de bienvenida */
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    background: var(--background-white);
+    color: #777777;
+    width: 100%;
+}
+
+.welcome-title {
+    font-size: 1.2rem;
+    font-weight: normal; /* Cambiar de bold a normal */
+    margin-bottom: 1rem;
+    color: var(--text-on-light);
+}
+
+.logo {
+    width: 85%; /* Porcentaje del contenedor padre */
+    height: auto;
+    margin: 2rem auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.continue-text {
+    font-size: 0.9rem;
+    color: #9e9e9e; /* Un gris medio-claro sutil */
+    margin-top: 20px;
+    font-weight: 300; /* Hacer la fuente más ligera */
+}
+
+/* Animaciones de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subtlePulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+
+.welcome-content > * {
+    opacity: 0;
+}
+
+.welcome-content.animate .welcome-title {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.welcome-content.animate .logo {
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.welcome-content.animate .continue-text {
+    animation: 
+        fadeInUp 0.8s ease forwards,
+        subtlePulse 2.5s ease-in-out infinite 1.5s; /* Comienza después de que aparezca */
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.small-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Botones principales */
+.main-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.mode-button {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--background-white);
+    border: none;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: all var(--transition-speed);
+    color: var(--text-on-light);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mode-button:first-child {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: var(--text-on-dark);
+}
+
+.mode-button:last-child {
+    background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+    color: var(--text-on-dark);
+}
+
+.mode-button i {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.mode-button:hover, .mode-button:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-color);
+}
+
+.mode-button:active {
+    transform: translateY(0);
+}
+
+/* Encabezado de modo */
+.mode-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.mode-header h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    margin: 0;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    border-radius: 50%;
+    transition: all var(--transition-speed);
+}
+
+.back-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #666;
+}
+
+.back-button i {
+    font-size: 1.1rem;
+}
+
+.mode-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: #666;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.mode-title i {
+    font-size: 1.1rem;
+    color: #888;
+}
+
+/* Botones de opciones */
+.option-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: var(--background-white);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    text-align: left;
+}
+
+.option-button i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.option-text {
+    flex: 1;
+}
+
+.option-text h3 {
+    font-size: 1.1rem;
+    color: var(--text-on-light);
+    margin-bottom: 4px;
+}
+
+.option-text p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+.option-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Opciones de configuración */
+.icon-button {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-speed);
+}
+
+.icon-button:hover, .icon-button:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Botón de retroceso */
+.back-button {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-speed);
+}
+
+.back-button:hover, .back-button:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Opción con interruptor */
+.toggle-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--background-white);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.toggle-option span {
+    flex: 1;
+    font-weight: 500;
+}
+
+.info-icon {
+    color: var(--primary-color);
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Interruptor estilo iOS */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Modales */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--background-white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Colores específicos por modo */
+.general-mode {
+    background: linear-gradient(135deg, 
+        rgba(98, 0, 234, 0.08) 0%,
+        rgba(157, 70, 255, 0.05) 100%);
+}
+
+.specific-mode,
+#stage-assistance-screen,
+#specialized-assistant-screen {
+    background: linear-gradient(135deg, 
+        rgba(41, 121, 255, 0.05) 0%,
+        rgba(117, 167, 255, 0.02) 100%);
+}
+
+.general-mode .mode-header {
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%,
+        var(--primary-light) 100%);
+}
+
+.specific-mode .mode-header,
+#stage-assistance-screen .mode-header,
+#specialized-assistant-screen .mode-header {
+    background: linear-gradient(135deg, 
+        var(--secondary-color) 0%,
+        var(--secondary-light) 100%);
+}
+
+.general-mode .mode-header h3,
+.general-mode .mode-header i,
+.general-mode .mode-header .mode-title,
+.general-mode .mode-header .mode-title span,
+.specific-mode .mode-header h3,
+.specific-mode .mode-header i,
+.specific-mode .mode-header .mode-title,
+.specific-mode .mode-header .mode-title span,
+#stage-assistance-screen .mode-header h3,
+#stage-assistance-screen .mode-header i,
+#stage-assistance-screen .mode-header .mode-title,
+#stage-assistance-screen .mode-header .mode-title span,
+#specialized-assistant-screen .mode-header h3,
+#specialized-assistant-screen .mode-header i,
+#specialized-assistant-screen .mode-header .mode-title,
+#specialized-assistant-screen .mode-header .mode-title span {
+    color: white;
+}
+
+.general-mode .back-button,
+.specific-mode .back-button,
+#stage-assistance-screen .back-button,
+#specialized-assistant-screen .back-button {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.general-mode .back-button:hover,
+.specific-mode .back-button:hover,
+#stage-assistance-screen .back-button:hover,
+#specialized-assistant-screen .back-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .welcome-content h1 {
+        font-size: 1.1rem;
+    }
+    
+    .mode-button, .option-button {
+        padding: 15px;
+    }
+    
+    .logo {
+        width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-content h1 {
+        font-size: 1rem;
+    }
+    
+    .mode-button, .option-button {
+        padding: 12px;
+    }
+    
+    .option-text h3 {
+        font-size: 0.9rem;
+    }
+    
+    .option-text p {
+        font-size: 0.8rem;
+    }
+    
+    .logo {
+        width: 300px;
+    }
+}
