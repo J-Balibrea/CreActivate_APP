@@ -16,6 +16,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const metricsScreen = document.getElementById('metrics-screen');
     const loginScreen = document.getElementById('login-screen');
     
+    // Configurar el evento de clic de la pantalla de bienvenida
+    const welcomeClickable = document.getElementById('welcome-clickable');
+    if (welcomeClickable) {
+        welcomeClickable.addEventListener('click', function(e) {
+            console.log('Click en pantalla de bienvenida');
+            e.preventDefault();
+            showScreen(mainScreen);
+        });
+    }
+    
     // Botones principales
     const generalModeBtn = document.getElementById('general-mode');
     const specificModeBtn = document.getElementById('specific-mode');
@@ -66,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let sessionProgress = 0;
     const SESSION_DURATION = 300; // 5 minutos en segundos
     let trainingPreviousScreen = generalModeScreen; // Pantalla anterior solo para el modo entrenamiento
+    let chatPreviousScreen = mainScreen; // Variable para recordar la pantalla de origen del chat
 
     // Elementos del chat de IA
     const chatMessages = document.getElementById('chat-messages');
@@ -352,6 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         ¡Hola! Estoy aquí para ayudarte con ejercicios de estimulación creativa. ¿En qué necesitas ayuda?
                     </div>
                 </div>`;
+            chatPreviousScreen = freeExplorationScreen; // Establecer la pantalla de origen como Exploración Libre
             showScreen(aiChatScreen);
         });
     }
@@ -365,6 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         ¡Inspiración al poder! ¿Listo para recibir una dosis de creatividad? ¿Sobre qué tema te gustaría que te inspire hoy?
                     </div>
                 </div>`;
+            chatPreviousScreen = generalModeScreen; // Establecer la pantalla de origen como Modo General
             showScreen(aiChatScreen);
         });
     }
@@ -480,13 +493,6 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.classList.remove('active');
     }
     
-    // Iniciar: Pantalla de bienvenida clickeable
-    document.getElementById('welcome-clickable').addEventListener('click', function(e) {
-        console.log('Click en pantalla de bienvenida');
-        e.preventDefault();
-        showScreen(mainScreen);
-    });
-    
     // Navegación principal
     generalModeBtn.addEventListener('click', function() {
         showScreen(generalModeScreen);
@@ -502,12 +508,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Navegación del Modo General
     freeExplorationOption.addEventListener('click', function() {
+        chatPreviousScreen = freeExplorationScreen; // Establecer la pantalla de origen
         showScreen(freeExplorationScreen);
     });
     
     // Navegación de Exploración Libre
     creativeStimulationOption.addEventListener('click', function() {
-        // Por ahora no hace nada
+        chatPreviousScreen = freeExplorationScreen; // Establecer la pantalla de origen como Exploración Libre
+        showScreen(aiChatScreen);
+    });
+    
+    randomInspirationOption.addEventListener('click', function() {
+        chatPreviousScreen = generalModeScreen; // Establecer la pantalla de origen como Modo General
+        showScreen(aiChatScreen);
     });
     
     aiAssistantInfo.addEventListener('click', function() {
@@ -516,10 +529,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Navegación del Modo Específico
     stageAssistanceOption.addEventListener('click', function() {
+        chatPreviousScreen = stageAssistanceScreen; // Establecer la pantalla de origen
         showScreen(stageAssistanceScreen);
     });
 
     specializedAssistantOption.addEventListener('click', function() {
+        chatPreviousScreen = specializedAssistantScreen; // Establecer la pantalla de origen
         showScreen(specializedAssistantScreen);
     });
     
@@ -536,6 +551,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
+            // Comportamiento para el chat de IA
+            if (currentScreen === aiChatScreen) {
+                // Volver a la pantalla de origen guardada
+                showScreen(chatPreviousScreen);
+                return;
+            }
+            
             // Comportamiento estándar para las demás pantallas
             if (currentScreen === freeExplorationScreen) {
                 showScreen(generalModeScreen);
@@ -545,9 +567,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 showScreen(mainScreen);
             } else if (currentScreen === configScreen) {
                 showScreen(mainScreen);
-            } else if (currentScreen === aiChatScreen) {
-                // Cambiado: Ahora siempre va a Asistencia por etapas desde el chat
-                showScreen(stageAssistanceScreen);
             } else {
                 // Por defecto, volver a la pantalla principal
                 showScreen(mainScreen);
