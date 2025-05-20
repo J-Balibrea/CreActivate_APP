@@ -56,6 +56,7 @@ body {
     transition: transform var(--transition-speed),
                 opacity var(--transition-speed),
                 visibility 0s var(--transition-speed);
+    overflow-x: hidden; /* Prevenir desbordamiento horizontal */
 }
 
 .screen.active {
@@ -121,10 +122,13 @@ body {
 }
 
 .main-logo {
-    width: 220px;
+    width: calc(100% - 40px);
     height: auto;
+    max-height: 200px;
     object-fit: contain;
-    margin-top: 20px;
+    margin: 20px 0;
+    padding: 0 20px;
+    align-self: center;
 }
 
 .main-options {
@@ -482,6 +486,97 @@ header {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Iconos de asistencia por etapa */
+#stage-assistance-screen .option-button i {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+/* Iconos de asistente especializado y modo específico */
+#specialized-assistant-screen .option-button i,
+.specific-mode .option-button i {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+#config-screen .option-button i {
+    color: #424242;
+    font-size: 1.5rem;
+}
+
+.specific-mode,
+#stage-assistance-screen,
+#specialized-assistant-screen {
+    background: linear-gradient(135deg, 
+        rgba(41, 121, 255, 0.05) 0%,
+        rgba(117, 167, 255, 0.02) 100%);
+}
+
+.general-mode .mode-header {
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%,
+        var(--primary-light) 100%);
+}
+
+.specific-mode .mode-header,
+#stage-assistance-screen .mode-header,
+#specialized-assistant-screen .mode-header {
+    background: linear-gradient(135deg, 
+        var(--secondary-color) 0%,
+        var(--secondary-light) 100%);
+}
+
+.general-mode .mode-header h3,
+.general-mode .mode-header i,
+.general-mode .mode-header .mode-title,
+.general-mode .mode-header .mode-title span,
+.specific-mode .mode-header h3,
+.specific-mode .mode-header i,
+.specific-mode .mode-header .mode-title,
+.specific-mode .mode-header .mode-title span,
+#stage-assistance-screen .mode-header h3,
+#stage-assistance-screen .mode-header i,
+#stage-assistance-screen .mode-header .mode-title,
+#stage-assistance-screen .mode-header .mode-title span,
+#specialized-assistant-screen .mode-header h3,
+#specialized-assistant-screen .mode-header i,
+#specialized-assistant-screen .mode-header .mode-title,
+#specialized-assistant-screen .mode-header .mode-title span {
+    color: white;
+}
+
+.general-mode .back-button,
+.specific-mode .back-button,
+#stage-assistance-screen .back-button,
+#specialized-assistant-screen .back-button {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.general-mode .back-button:hover,
+.specific-mode .back-button:hover,
+#stage-assistance-screen .back-button:hover,
+#specialized-assistant-screen .back-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Encabezado de la pantalla de Entrenamiento */
+#training-screen .mode-header {
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%,
+        var(--primary-light) 100%);
+}
+
+#training-screen .mode-header h3,
+#training-screen .mode-header i,
+#training-screen .mode-header .back-button {
+    color: white;
+}
+
+#training-screen .mode-header .back-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 /* Opciones de configuración */
 .icon-button {
     background: transparent;
@@ -644,60 +739,443 @@ input:checked + .slider:before {
         rgba(157, 70, 255, 0.05) 100%);
 }
 
-.specific-mode,
-#stage-assistance-screen,
-#specialized-assistant-screen {
-    background: linear-gradient(135deg, 
-        rgba(41, 121, 255, 0.05) 0%,
-        rgba(117, 167, 255, 0.02) 100%);
-}
-
-.general-mode .mode-header {
-    background: linear-gradient(135deg, 
-        var(--primary-color) 0%,
-        var(--primary-light) 100%);
-}
-
-.specific-mode .mode-header,
-#stage-assistance-screen .mode-header,
-#specialized-assistant-screen .mode-header {
-    background: linear-gradient(135deg, 
-        var(--secondary-color) 0%,
-        var(--secondary-light) 100%);
-}
-
-.general-mode .mode-header h3,
-.general-mode .mode-header i,
-.general-mode .mode-header .mode-title,
-.general-mode .mode-header .mode-title span,
-.specific-mode .mode-header h3,
-.specific-mode .mode-header i,
-.specific-mode .mode-header .mode-title,
-.specific-mode .mode-header .mode-title span,
-#stage-assistance-screen .mode-header h3,
-#stage-assistance-screen .mode-header i,
-#stage-assistance-screen .mode-header .mode-title,
-#stage-assistance-screen .mode-header .mode-title span,
-#specialized-assistant-screen .mode-header h3,
-#specialized-assistant-screen .mode-header i,
-#specialized-assistant-screen .mode-header .mode-title,
-#specialized-assistant-screen .mode-header .mode-title span {
+/* Pantalla de Entrenamiento */
+.training-mode {
+    background: url('FdP.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
     color: white;
 }
 
-.general-mode .back-button,
-.specific-mode .back-button,
-#stage-assistance-screen .back-button,
-#specialized-assistant-screen .back-button {
+.training-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: calc(100% - 60px); /* Restar la altura del header */
+    overflow-y: auto; /* Permitir desplazamiento vertical si es necesario */
+    overflow-x: hidden; /* Prevenir desbordamiento horizontal */
+    padding-bottom: 100px; /* Espacio para los controles */
+    width: 100%;
+    box-sizing: border-box; /* Incluir padding en el ancho total */
+}
+
+/* Cerebro - Arriba del todo */
+.brain-visualization {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 0 20px; /* Aún más padding arriba */
+    margin: 0;
+    height: 300px; /* Altura máxima para el contenedor */
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.brain-container {
+    position: relative;
+    width: 300px; /* Tamaño máximo */
+    height: 300px; /* Mismo valor que el ancho */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.brain-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(157, 70, 255, 1)); /* Sombra más intensa */
+    animation: pulse 2s infinite alternate;
+}
+
+/* Ajustar la animación de pulso para el nuevo tamaño */
+@keyframes pulse {
+    from {
+        transform: scale(0.98);
+        filter: drop-shadow(0 0 12px rgba(157, 70, 255, 0.8));
+    }
+    to {
+        transform: scale(1.04);
+        filter: drop-shadow(0 0 25px rgba(157, 70, 255, 1.2));
+    }
+}
+
+/* Contenedor para los indicadores y el panel de información */
+.training-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    min-height: 0; /* Permite que el contenedor se encoja si es necesario */
+}
+
+.measurement-indicators {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 15px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Panel de información */
+.info-panel {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: auto; /* Empuja el panel hacia abajo */
+    max-height: 150px; /* Altura máxima para mostrar 4-5 líneas */
+    overflow-y: auto; /* Añade desplazamiento si el contenido es muy largo */
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.info-content {
     color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: left;
+    margin: 0;
 }
 
-.general-mode .back-button:hover,
-.specific-mode .back-button:hover,
-#stage-assistance-screen .back-button:hover,
-#specialized-assistant-screen .back-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+/* Controles de reproducción fijos en la parte inferior */
+.player-controls {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.7);
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .training-content {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .brain-visualization {
+        height: 180px;
+        padding: 10px 0;
+    }
+    
+    .info-panel {
+        max-height: 120px;
+        padding: 10px;
+    }
+}
+
+/* Efecto de ondas EEG */
+.brain-container::before,
+.brain-container::after {
+    content: '';
+    position: absolute;
+    border: 2px solid rgba(157, 70, 255, 0.5);
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    animation: ripple 3s ease-out infinite;
+    opacity: 0;
+}
+
+.brain-container::after {
+    animation-delay: 1s;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.95);
+        filter: drop-shadow(0 0 5px rgba(157, 70, 255, 0.5));
+    }
+    to {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 15px rgba(157, 70, 255, 1.2));
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+    70% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.brainwave-animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.wave {
+    position: absolute;
+    border: 2px solid var(--primary-light);
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    animation: wave-animation 3s infinite;
+}
+
+.wave2 {
+    animation-delay: 0.75s;
+}
+
+.wave3 {
+    animation-delay: 1.5s;
+}
+
+.wave4 {
+    animation-delay: 2.25s;
+}
+
+@keyframes wave-animation {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.controls-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 15px;
+    gap: 15px;
+    min-height: 300px;
+}
+
+.info-content {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: left;
+    margin: 0;
+}
+
+.info-content p {
+    margin-bottom: 8px;
+}
+
+.player-controls {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.timeline {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4a148c 0%, #1a237e 100%);
+    transition: width 0.1s linear;
+    position: relative;
+}
+
+.progress::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.time-display {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 1px;
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.control-btn {
+    background: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
     color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    border-color: var(--primary-light);
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.play-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+}
+
+.restart-btn,
+.end-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+.measurement-indicators {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 15px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    order: 1; /* Asegura que esté encima del info-panel */
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.indicator:last-child {
+    margin-bottom: 0;
+}
+
+.indicator-label {
+    width: 80px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.indicator-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.indicator-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 5px;
+    transition: width 0.5s ease-out;
+    position: relative;
+}
+
+.indicator-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    animation: shimmer 2s infinite linear;
+    background-size: 200% 100%;
+}
+
+.indicator-value {
+    width: 40px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 /* Responsive design */
@@ -734,5 +1212,562 @@ input:checked + .slider:before {
     
     .logo {
         width: 300px;
+    }
+}
+
+/* Asegurar que no haya desbordamiento horizontal */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Estilos para la pantalla de chat de IA */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #f5f7fa;
+    position: relative;
+    overflow: hidden;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 20px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    line-height: 1.4;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom-right-radius: 4px;
+    margin-left: 20%;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: white;
+    color: var(--text-on-light);
+    border: 1px solid #e1e4e8;
+    border-bottom-left-radius: 4px;
+    margin-right: 20%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.chat-input-container {
+    padding: 15px;
+    background-color: white;
+    border-top: 1px solid #e1e4e8;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #e1e4e8;
+    border-radius: 24px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#chat-input:focus {
+    border-color: var(--primary-color);
+}
+
+#send-message {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#send-message:hover {
+    background-color: var(--primary-dark);
+}
+
+#send-message i {
+    font-size: 18px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos para la pantalla de métricas */
+.metrics-content {
+    padding: 15px;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.metrics-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin: 10px 0;
+}
+
+.sessions-table {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 10px;
+}
+
+table {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px 8px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    word-break: break-word;
+    font-size: 12px;
+}
+
+/* Ajustes responsivos */
+@media (min-width: 400px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .metric-card.full-width {
+        grid-column: 1 / -1;
+    }
+    
+    th, td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+}
+
+/* Asegurar que no haya desbordamiento horizontal en toda la aplicación */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ajustar el contenedor principal */
+.screen {
+    overflow: hidden;
+}
+
+/* Asegurar que las tablas sean responsivas */
+.sessions-table::-webkit-scrollbar {
+    height: 5px;
+}
+
+.sessions-table::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Estilos para la pantalla de métricas móvil */
+#metrics-screen {
+    overflow: hidden;
+}
+
+.metrics-content {
+    padding: 10px;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 20px;
+}
+
+.metrics-header {
+    padding: 10px 5px;
+    margin-bottom: 5px;
+    position: sticky;
+    top: 0;
+    background: var(--background-light);
+    z-index: 5;
+    border-bottom: 1px solid #eee;
+}
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.date-selector button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+#current-week {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.metric-card h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    margin: 10px 0;
+}
+
+.metric-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.stat {
+    text-align: center;
+    flex: 1;
+    padding: 0 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 3px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+    display: block;
+}
+
+/* Estilos para la lista de sesiones */
+.sessions-list {
+    margin-top: 10px;
+}
+
+.session-item {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.session-date {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.session-duration {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.session-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.session-stats .stat {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin: 0 2px;
+}
+
+.session-stats .stat-value {
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.session-stats .stat-label {
+    font-size: 11px;
+    color: #888;
+}
+
+/* Ajustes de scroll */
+.metrics-content::-webkit-scrollbar {
+    width: 3px;
+}
+
+.metrics-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+/* Asegurar que los gráficos sean responsivos */
+canvas {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 340px) {
+    .stat {
+        padding: 0 2px;
+    }
+    
+    .stat-value {
+        font-size: 14px;
+    }
+    
+    .stat-label {
+        font-size: 11px;
+    }
+    
+    .session-stats .stat {
+        padding: 6px 4px;
+    }
+}
+
+/* Estilos para la pantalla de login */
+.login-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 350px;
+    background: var(--background-white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 0 15px;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.2);
+}
+
+.input-group i {
+    color: #757575;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 0;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: var(--text-on-light);
+    outline: none;
+}
+
+.toggle-password {
+    cursor: pointer;
+    color: #757575;
+    margin-left: 10px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background: var(--primary-dark);
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.login-options a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-options a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.social-login {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.social-login p {
+    color: #757575;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn.google {
+    color: #DB4437;
+}
+
+.social-btn.facebook {
+    color: #1877F2;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+    .login-form {
+        padding: 20px;
+    }
+    
+    .login-options {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
 }

@@ -184,6 +184,22 @@
                     <p>Presentación de estímulos inesperados generados por IA para favorecer asociaciones creativas.</p>
                 </div>
             </button>
+
+            <button class="option-button" id="evaluation-option">
+                <i class="fas fa-check-circle"></i>
+                <div class="option-text">
+                    <h3>Evaluación</h3>
+                    <p>Análisis y valoración de las ideas generadas durante el proceso creativo.</p>
+                </div>
+            </button>
+
+            <button class="option-button" id="elaboration-option">
+                <i class="fas fa-pencil-alt"></i>
+                <div class="option-text">
+                    <h3>Elaboración</h3>
+                    <p>Desarrollo y refinamiento de las ideas seleccionadas.</p>
+                </div>
+            </button>
         </div>
     </div>
 
@@ -252,6 +268,149 @@
                     <h3>Opciones Avanzadas</h3>
                 </div>
             </button>
+
+            <button class="option-button" id="metrics-config">
+                <i class="fas fa-chart-line"></i>
+                <div class="option-text">
+                    <h3>Métricas</h3>
+                    <p>Seguimiento y análisis del progreso</p>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Login -->
+    <div id="login-screen" class="screen">
+        <div class="mode-header">
+            <button class="back-button"><i class="fas fa-arrow-left"></i></button>
+            <h3>Iniciar Sesión</h3>
+        </div>
+        <div class="login-content">
+            <div class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Correo electrónico" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Contraseña" required>
+                    <i class="fas fa-eye toggle-password"></i>
+                </div>
+                <button id="login-button" class="login-button">Iniciar Sesión</button>
+                <div class="login-options">
+                    <a href="#" id="forgot-password">¿Olvidaste tu contraseña?</a>
+                    <a href="#" id="register-account">Crear cuenta</a>
+                </div>
+                <div class="social-login">
+                    <p>O inicia sesión con</p>
+                    <div class="social-buttons">
+                        <button class="social-btn google">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Entrenamiento -->
+    <div id="training-screen" class="screen training-mode">
+        <div class="mode-header training-header">
+            <button class="back-button"><i class="fas fa-arrow-left"></i></button>
+            <h3 class="section-title">Entrenamiento</h3>
+        </div>
+        
+        <div class="training-content">
+            <!-- 1. Cerebro (arriba del todo) -->
+            <div class="brain-visualization">
+                <div class="brain-container">
+                    <img src="Brain.png" alt="Brain" class="brain-image">
+                </div>
+            </div>
+            
+            <!-- Contenedor principal para indicadores y panel de información -->
+            <div class="training-main-content">
+                <!-- 2. Panel de barras (medición) -->
+                <div class="measurement-indicators">
+                    <div class="indicator">
+                        <span class="indicator-label">Atención</span>
+                        <div class="indicator-bar">
+                            <div class="indicator-fill" data-value="0"></div>
+                        </div>
+                        <span class="indicator-value">0%</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="indicator-label">Relajación</span>
+                        <div class="indicator-bar">
+                            <div class="indicator-fill" data-value="0"></div>
+                        </div>
+                        <span class="indicator-value">0%</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="indicator-label">Creatividad</span>
+                        <div class="indicator-bar">
+                            <div class="indicator-fill" data-value="0"></div>
+                        </div>
+                        <span class="indicator-value">0%</span>
+                    </div>
+                </div>
+
+                <!-- 3. Panel de información -->
+                <div class="info-panel">
+                    <div class="info-content">
+                        <p>Bienvenido a la sesión de entrenamiento.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 4. Controles de reproducción (abajo del todo) -->
+            <div class="player-controls">
+                <div class="timeline">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="time-display">00:00</div>
+                </div>
+                
+                <div class="control-buttons">
+                    <button class="control-btn restart-btn">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                    <button class="control-btn play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn end-btn">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Chat de IA -->
+    <div id="ai-chat-screen" class="screen">
+        <div class="mode-header">
+            <button class="back-button"><i class="fas fa-arrow-left"></i></button>
+            <h3>Asistente Creativo</h3>
+        </div>
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        ¡Hola! Soy tu asistente de creatividad. ¿En qué puedo ayudarte hoy?
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." autocomplete="off">
+                    <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -263,6 +422,99 @@
         </div>
     </div>
 
+    <!-- Pantalla de Métricas -->
+    <div id="metrics-screen" class="screen">
+        <div class="mode-header">
+            <button class="back-button"><i class="fas fa-arrow-left"></i></button>
+            <h3>Métricas</h3>
+        </div>
+        <div class="metrics-content">
+            <div class="metrics-header">
+                <div class="date-selector">
+                    <button id="prev-week"><i class="fas fa-chevron-left"></i></button>
+                    <span id="current-week">Semana Actual</span>
+                    <button id="next-week"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <h3>Concentración</h3>
+                <div class="chart-container">
+                    <canvas id="concentration-chart"></canvas>
+                </div>
+                <div class="metric-stats">
+                    <div class="stat">
+                        <span class="stat-value">85%</span>
+                        <span class="stat-label">Promedio</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">+12%</span>
+                        <span class="stat-label">vs semana pasada</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Relajación</h3>
+                <div class="chart-container">
+                    <canvas id="relaxation-chart"></canvas>
+                </div>
+                <div class="metric-stats">
+                    <div class="stat">
+                        <span class="stat-value">72%</span>
+                        <span class="stat-label">Promedio</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">+5%</span>
+                        <span class="stat-label">vs semana pasada</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Progreso Semanal</h3>
+                <div class="chart-container">
+                    <canvas id="weekly-progress-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Últimas Sesiones</h3>
+                <div class="sessions-list">
+                    <div class="session-item">
+                        <div class="session-date">Hoy</div>
+                        <div class="session-duration">25 min</div>
+                        <div class="session-stats">
+                            <div class="stat">
+                                <span class="stat-label">Concentración</span>
+                                <span class="stat-value">82%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Relajación</span>
+                                <span class="stat-value">75%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="session-item">
+                        <div class="session-date">Ayer</div>
+                        <div class="session-duration">30 min</div>
+                        <div class="session-stats">
+                            <div class="stat">
+                                <span class="stat-label">Concentración</span>
+                                <span class="stat-value">78%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Relajación</span>
+                                <span class="stat-value">68%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
