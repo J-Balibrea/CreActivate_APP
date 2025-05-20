@@ -469,30 +469,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para cambiar de pantalla
     function showScreen(screen) {
-        console.log('Cambiando a pantalla:', screen.id);
         // Ocultar todas las pantallas
         document.querySelectorAll('.screen').forEach(s => {
-            s.classList.remove('active');
-            s.style.transform = 'translate(-50%, -50%) translateY(20px)';
-            s.style.opacity = '0';
+            if (s !== screen) {
+                s.classList.remove('active');
+                // Restaurar las transformaciones originales para la animación
+                s.style.transform = 'translate(-50%, -50%) translateY(20px)';
+                s.style.opacity = '0';
+            }
         });
         
         // Mostrar la pantalla seleccionada
         screen.classList.add('active');
         screen.style.transform = 'translate(-50%, -50%) translateY(0)';
         screen.style.opacity = '1';
+        
+        // Actualizar el historial del navegador
+        const screenId = screen.id;
+        const state = { screen: screenId };
+        const title = document.title;
+        const url = `#${screenId}`;
+        
+        // Solo actualizar la URL si es diferente a la actual
+        if (window.location.hash !== url) {
+            history.pushState(state, title, url);
+        }
     }
     
-    // Función para mostrar modal
-    function showModal(modal) {
-        modal.classList.add('active');
+    // Manejar el evento popstate (cuando se presiona el botón Atrás/Adelante del navegador)
+    window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.screen) {
+            const screen = document.getElementById(event.state.screen);
+            if (screen) {
+                // Usar setTimeout para asegurar que la transición se aplique correctamente
+                setTimeout(() => {
+                    showScreen(screen);
+                }, 0);
+            }
+        } else {
+            // Si no hay estado, mostrar la pantalla principal
+            const mainScreen = document.getElementById('main-screen');
+            if (mainScreen) {
+                showScreen(mainScreen);
+            }
+        }
+    });
+
+    // Inicializar la aplicación con la pantalla correcta basada en el hash de la URL
+    function initializeApp() {
+        console.log('El script se está cargando correctamente');
+        
+        // Configurar la pantalla inicial basada en el hash de la URL
+        const hash = window.location.hash.substring(1);
+        let initialScreen = document.getElementById('welcome-screen');
+        
+        if (hash) {
+            const screenFromHash = document.getElementById(hash);
+            if (screenFromHash) {
+                initialScreen = screenFromHash;
+            }
+        }
+        
+        // Mostrar la pantalla inicial sin animación la primera vez
+        initialScreen.classList.add('active');
+        initialScreen.style.transform = 'translate(-50%, -50%)';
+        initialScreen.style.opacity = '1';
+        
+        // Resto del código de inicialización...
     }
-    
-    // Función para cerrar modal
-    function closeModal(modal) {
-        modal.classList.remove('active');
-    }
-    
+
+    // Llamar a la función de inicialización cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', initializeApp);
+
     // Navegación principal
     generalModeBtn.addEventListener('click', function() {
         showScreen(generalModeScreen);
