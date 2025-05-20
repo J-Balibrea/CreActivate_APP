@@ -498,6 +498,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Manejar el evento popstate (cuando se presiona el botón Atrás/Adelante del navegador)
     window.addEventListener('popstate', function(event) {
+        // Si ya estamos en la pantalla principal, no hacer nada
+        const currentScreen = document.querySelector('.screen.active');
+        if (currentScreen && currentScreen.id === 'main-screen') {
+            // Reemplazar el estado actual para que el siguiente 'atrás' salga de la app
+            history.replaceState(null, document.title, window.location.pathname);
+            return;
+        }
+        
         if (event.state && event.state.screen) {
             const screen = document.getElementById(event.state.screen);
             if (screen) {
